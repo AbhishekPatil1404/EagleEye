@@ -695,13 +695,13 @@ else:
 
 # Footer with Logos
 st.markdown("---")
-footer_col1, footer_col2, footer_col3 = st.columns([2, 3, 2])
-with footer_col2:
-    footer_logo_col1, footer_logo_col2 = st.columns([1, 1])
-    with footer_logo_col1:
-        st.image("Rotex.png", use_container_width=True)
-    with footer_logo_col2:
-        st.markdown('<div class="eye-logo-wrapper">', unsafe_allow_html=True)
-        st.image("Eagleeye.png", width=107)
-        st.markdown('</div>', unsafe_allow_html=True)
+# footer_col1, footer_col2, footer_col3 = st.columns([2, 3, 2])
+# with footer_col2:
+#     footer_logo_col1, footer_logo_col2 = st.columns([1, 1])
+#     with footer_logo_col1:
+#         st.image("Rotex.png", use_container_width=True)
+#     with footer_logo_col2:
+#         st.markdown('<div class="eye-logo-wrapper">', unsafe_allow_html=True)
+#         st.image("Eagleeye.png", width=107)
+#         st.markdown('</div>', unsafe_allow_html=True)
 st.markdown("Built with ❤ using Streamlit • For efficient trade analysis and quick IP insights")
