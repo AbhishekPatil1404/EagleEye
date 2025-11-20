@@ -369,7 +369,7 @@ with left_col:
     st.image("Rotex.png", use_container_width=True)
 
 with left_col:
-    st.image("Eagleeye.png", width=107)
+    st.image("eagleeye_logo.png", width=107)
 
 
 
