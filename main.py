@@ -363,12 +363,14 @@ st.markdown(theme_css_light, unsafe_allow_html=True)
 #         st.markdown('<div class="eye-logo-wrapper">', unsafe_allow_html=True)
 #         st.image("Eagleeye.png", width=107)
 #         st.markdown('</div>', unsafe_allow_html=True)
-# --- Fix Logo Alignment (Both logos upper-left) ---
-logo_col = st.columns([0.15, 0.85])  # adjust width as needed
+left_col, right_col = st.columns([0.2, 0.8])
 
-with logo_col[0]:
-    st.image(r"C:\Users\Administrator\Desktop\Trading App Python\trading_app\documents\logo2.png", width=120)
-    st.image(r"C:\Users\Administrator\Desktop\Trading App Python\trading_app\documents\logo1.png", width=100)
+with left_col:
+    st.image("Rotex.png", use_container_width=True)
+
+with left_col:
+    st.image("Eagleeye.png", width=107)
+
 
 
 
