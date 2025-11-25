@@ -845,6 +845,12 @@ def analyze_trades(uploaded_file, scalping_limit):
         avg_hold_time = positions_df['Hold_Time'].mean()
         avg_scalping_hold_time = scalping_df['Hold_Time'].mean() if len(scalping_df) > 0 else pd.Timedelta(0)
 
+
+                # Cumulative profit over time (for equity curve)
+        equity_df = positions_df.sort_values("Close Time").copy()
+        equity_df["Cumulative_Profit"] = equity_df["Profit"].cumsum()
+
+
         # --- Return structured results ---
         return {
             "total_positions": total_positions,
@@ -869,7 +875,8 @@ def analyze_trades(uploaded_file, scalping_limit):
             "burst_df": burst_df,
             "all_positions_df": positions_df,
             "profit_by_symbol": profit_by_symbol,
-            "trades_count": trades_count
+            "trades_count": trades_count,
+            "equity_df": equity_df
         }
 
     except Exception as e:
@@ -1321,6 +1328,30 @@ if uploaded_file:
 
             fig2.update_traces(marker_color=bar_colors)
             st.plotly_chart(fig2, use_container_width=True)
+
+        st.write("### 📈 Equity Curve — Profit Over Time")
+
+        equity_df = result["equity_df"]
+
+        fig_equity = px.line(
+                equity_df,
+                x="Close Time",
+                y="Cumulative_Profit",
+                markers=True,
+                labels={"Close Time": "Time", "Cumulative_Profit": "Profit"},
+            )
+
+        fig_equity.update_layout(
+                height=550,
+                xaxis_title="Time",
+                yaxis_title="Cumulative Profit (USD)",
+                margin=dict(l=10, r=10, t=50, b=10),
+                hovermode="x unified",
+            )
+
+        # full screen width
+        st.plotly_chart(fig_equity, use_container_width=True)
+
 
         # --- Copyable Client Report ---
         notes = []
