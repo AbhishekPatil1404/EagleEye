@@ -1082,7 +1082,7 @@ with col2:
         st.image("Rotex.png", use_container_width=True)
     with logo_col2:
         st.markdown('<div class="eye-logo-wrapper">', unsafe_allow_html=True)
-        st.image("Eagleeye.png", width=107)
+        st.image("eagleeye_logo.png", width=107)
         st.markdown('</div>', unsafe_allow_html=True)
 
 st.title("📊 Trade Analyzer & 🌐 IP Lookup Tool")
