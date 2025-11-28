@@ -1075,15 +1075,18 @@ div.eye-logo-wrapper img,
 st.markdown(theme_css_light, unsafe_allow_html=True)
 
 # --- Logo Section ---
-col1, col2, col3 = st.columns([2, 3, 2])
-with col2:
-    logo_col1, logo_col2 = st.columns([1, 1])
-    with logo_col1:
-        st.image("Rotex.png", use_container_width=True)
-    with logo_col2:
-        st.markdown('<div class="eye-logo-wrapper">', unsafe_allow_html=True)
-        st.image("eagleeye_logo.png", width=107)
-        st.markdown('</div>', unsafe_allow_html=True)
+# col1, col2, col3 = st.columns([2, 3, 2])
+# with col2:
+#     logo_col1, logo_col2 = st.columns([1, 1])
+#     with logo_col1:
+#         st.image("Rotex.png", use_container_width=True)
+#     with logo_col2:
+#         st.markdown('<div class="eye-logo-wrapper">', unsafe_allow_html=True)
+#         st.image("eagleeye_logo.png", width=107)
+#         st.markdown('</div>', unsafe_allow_html=True)
+
+    c = st.container()
+    st.image("eagleeye_logo.png", width=107)
 
 st.title("📊 Trade Analyzer & 🌐 IP Lookup Tool")
 st.markdown("---")
