@@ -1085,7 +1085,7 @@ st.markdown(theme_css_light, unsafe_allow_html=True)
 #         st.image("eagleeye_logo.png", width=107)
 #         st.markdown('</div>', unsafe_allow_html=True)
 
-c = st.container()
+c = st.container(width="stretch", height="content")
 st.image("Rotex.png", width=107)
 
 st.title("📊 Trade Analyzer & 🌐 IP Lookup Tool")
