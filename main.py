@@ -1358,7 +1358,7 @@ if uploaded_file:
         notes = []
         if result["scalping_percentage"] > 30:
             notes.append("Scalping Acc.")
-        if result["reversal_count"] > 0 and result["reversal_percentage"] > 0:
+        if result["reversal_count"] > 10 and result["reversal_percentage"] > 10:
             notes.append("Performed Hedging")
         if result["burst_count"] > 5:
             notes.append("Performed Burst Trades")
