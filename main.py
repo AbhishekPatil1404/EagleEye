@@ -1370,20 +1370,20 @@ if uploaded_file:
 - Total Profit: ${result['total_profit']:.2f}
 
 *Scalping Trades*
-- Scalping Trades: {result['scalping_count']}
-- Scalping Profit: ${result['scalping_profit']:.2f}
+- Scalping Trades: {result['scalping_count']} ({result['scalping_percentage']:.1f}%)
+- Scalping Profit: ${result['scalping_profit']:.2f} ({result['scalping_profit_percentage']:.1f}%)
 - Scalping % of trades: {result['scalping_percentage']:.1f}%
 - Scalping profit % of total: {result['scalping_profit_percentage']:.1f}%
 
 *Reversal Trades*
-- Reversal Trades: {result['reversal_count']}
-- Reversal Profit: ${result['reversal_profit']:.2f}
+- Reversal Trades: {result['reversal_count']} ({result['reversal_percentage']:.1f}%)
+- Reversal Profit: ${result['reversal_profit']:.2f} ({result['reversal_profit_percentage']:.1f}%)
 - Reversal Trades % of total trades: {result['reversal_percentage']:.1f}%
 - Reversal Profit % of total profit: {result['reversal_profit_percentage']:.1f}%
 
 *Burst Trades*
-- Burst Trades: {result['burst_count']}
-- Burst Profit: ${result['burst_profit']:.2f}
+- Burst Trades: {result['burst_count']} ({result['burst_percentage']:.1f}%)
+- Burst Profit: ${result['burst_profit']:.2f} ({result['burst_profit_percentage']:.1f}%)
 - Burst Trades % of total trades: {result['burst_percentage']:.1f}%
 - Burst Profit % of total: {result['burst_profit_percentage']:.1f}%
 
