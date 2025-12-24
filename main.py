@@ -14,7 +14,7 @@ if 'ip_history' not in st.session_state:
     st.session_state.ip_history = []
 
 
-def analyze_trades(uploaded_file, scalping_limit):
+def analyze_trades(uploaded_file, scalping_limit, selected_symbols):
     """Analyze trading positions from Excel file"""
     try:
         df = pd.read_excel(uploaded_file, sheet_name=0, header=None)
@@ -34,6 +34,9 @@ def analyze_trades(uploaded_file, scalping_limit):
         positions_raw = positions_raw.dropna(how='all')
         positions_raw.columns = positions_raw.iloc[0]
         positions_df = positions_raw[1:].reset_index(drop=True)
+        # --- Apply Symbol Filter ---
+        if selected_symbols:
+            positions_df = positions_df[positions_df["Symbol"].isin(selected_symbols)].reset_index(drop=True)
 
         # --- Rename key columns ---
         positions_df = positions_df.rename(columns={
@@ -385,12 +388,35 @@ st.header("📈 Trade Analysis")
 uploaded_file = st.file_uploader("Upload Excel Trade Report", type=["xlsx"], key="trade_file")
 
 if uploaded_file:
+
+    # --- Read file once to extract symbols ---
+    temp_df = pd.read_excel(uploaded_file, sheet_name=0, header=None)
+
+    start_idx = temp_df.index[temp_df[0].astype(str).str.contains('Positions', case=False, na=False)].tolist()
+    end_idx = temp_df.index[temp_df[0].astype(str).str.contains('Orders', case=False, na=False)].tolist()
+
+    start = start_idx[0] + 1
+    end = end_idx[0] if end_idx else len(temp_df)
+
+    positions_raw = temp_df.iloc[start:end].dropna(how='all')
+    positions_raw.columns = positions_raw.iloc[0]
+    positions_df_preview = positions_raw[1:].reset_index(drop=True)
+
+    symbols = sorted(positions_df_preview["Symbol"].dropna().unique().tolist())
+
+    # --- Symbol Filter ---
+    selected_symbols = st.multiselect(
+        "Filter by Symbol (leave empty for ALL)",
+        options=symbols,
+        default=[]
+    )
+
     scalping_limit = st.slider(
         "Select Scalping Time (minutes)", min_value=1, max_value=5, value=3
     )
     with st.spinner("Analyzing trades..."):
         # result = analyze_trades(uploaded_file)
-        result = analyze_trades(uploaded_file, scalping_limit)
+        result = analyze_trades(uploaded_file, scalping_limit, selected_symbols)
 
     if result:
         # --- Extract Account Number from Filename ---
@@ -401,6 +427,11 @@ if uploaded_file:
         account_no = acc_match.group(1) if acc_match else "Unknown"
 
         # --- Overall Stats ---
+        if selected_symbols:
+            st.success(f"🔎 Active Symbol Filter: {', '.join(selected_symbols)}")
+        else:
+            st.info("🔎 Showing ALL symbols")
+
         st.subheader("📊 Overall Statistics")
         metric_cols = st.columns(4)
         with metric_cols[0]:
@@ -652,9 +683,9 @@ if uploaded_file:
             notes.append("Performed Hedging")
         if result["burst_count"] > 5:
             notes.append("Performed Burst Trades")
-
+        symbols_text = ", ".join(selected_symbols) if selected_symbols else "ALL"
         client_report = f"""📊 *Trade_Analysis_Report - {account_no}*
-
+        *Symbol Filter:* {symbols_text}
 *Overall*
 - Total Trades: {result['total_positions']}
 - Total Profit: ${result['total_profit']:.2f}
