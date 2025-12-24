@@ -684,7 +684,7 @@ if uploaded_file:
         if result["burst_count"] > 5:
             notes.append("Performed Burst Trades")
         symbols_text = ", ".join(selected_symbols) if selected_symbols else "ALL"
-        client_report = f"""📊 *Trade_Analysis_Report - {account_no}*
+        client_report = f"""📊 *Trade_Analysis_Report - {account_no}* 
         *Symbol Filter:* {symbols_text}
 *Overall*
 - Total Trades: {result['total_positions']}
